@@ -51,6 +51,7 @@ export default {
     }
   },
   watch: {
+    // generates a reportConfiguration object and updates the customReport configuration
     selectedFactSheetType (factSheetType) {
       const reportConfiguration = {
         allowEditing: false,
@@ -83,10 +84,12 @@ export default {
           .map(factSheetType => ({ key: factSheetType, value: factSheetTypes[factSheetType] }))
           .sort((A, B) => A.value > B.value ? 1 : A.value < B.value ? -1 : 0)
 
+        // We set the default factSheetType as the first item of the factSheetType list
         const defaultFactSheetType = this.factSheetTypes[0]
         const { key, label } = defaultFactSheetType
 
-        // We pass the, will be generated afterwards whenever the selectedFactSheetType changes
+        // We initialize the report configuration with the default factSheet type
+        // this configuration is updated whenever the selectedFactSheetType changes
         this.$lx.ready({
           facets: [
             {
